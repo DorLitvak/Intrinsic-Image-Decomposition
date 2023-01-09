@@ -10,7 +10,6 @@ using Serialization
 #using SciPy
 #using GaussianProcesses
 
-#addprocs(8)
 
 #For the HDP, vHDP version
 #@everywhere using VersatileHDPMixtureModels
