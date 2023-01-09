@@ -8,13 +8,18 @@ Some mathematical explanation about the repo:
 
 We will work in the log domain where the log of the observed image, x, is as sumed to be generated from the sum of the log shading and the log reflectance
 image.
+
 X - the observed image
+
 S - the shading image
+
 R - the reflectance image
+
 log(X) ∼ log(S) + log(R)
 
 The different type of colors and shapes over the surface. 
 We assume:
+
 $log(R) = p(z|\pi)$
 
 $p(z|\pi) = \Pi_{i} p(z_{i}|\pi) = \Pi_{i} Cat(z_{i};\pi)$ 
@@ -24,6 +29,7 @@ $p(\mu) = \Pi_{k} p(\mu_{k}) = N(\mu_{k};\theta,\Sigma^{\mu})$
 $p(\pi) = GEM(\pi; 1, \alpha)$
 
 What is the shading?
+
 Is the type of hills and curves in the shape of the instance. 
 $log(S) = g$ 
 
