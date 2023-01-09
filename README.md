@@ -16,13 +16,17 @@ log(X) ∼ log(S) + log(R)
 The different type of colors and shapes over the surface. 
 We assume:
 $log(R) = p(z|\pi)$
+
 $p(z|\pi) = \Pi_{i} p(z_{i}|\pi) = \Pi_{i} Cat(z_{i};\pi)$ 
+
 $p(\mu) = \Pi_{k} p(\mu_{k}) = N(\mu_{k};\theta,\Sigma^{\mu})$ 
+
 $p(\pi) = GEM(\pi; 1, \alpha)$
 
 What is the shading?
 Is the type of hills and curves in the shape of the instance. 
 $log(S) = g$ 
+
 - The log shading image, denoted g, is generated from a zero-mean Gaussian process (GP) with a stationary co variance kernel, k. 
 - We model g as a 3D Gaussian process with a co-variance kernel that is a function of location and color. 
 - $p(g) = GP(g ; k) = N(g ; 0, \Sigma ^{g})$ 
