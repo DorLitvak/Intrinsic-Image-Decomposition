@@ -47,26 +47,4 @@ Finally, we assume that the observed pixels in the log image are drawn independe
 $p(x|\mu, z, g, \Sigma^{x}) = \Pi_{i} p(x_{i}|\mu, z_{i}, g_{i}, \Sigma^{x}) = \Pi_{i} N(x_{i} ; \mu_{z_{i}} + g_{i}, \Sigma_{x})$
 
 
-To covert to MRF version:
-
-Assume a small image I as described as a vector: 
-
-$I_{vec}^{T} = [X_1, X_2, X_3, X_4, X_5, X_6, X_7, X_8, X_9, X_10, X_11, X_12]$
-
-Mark the two dimensions of I as $size_{1} = 4$, $size_{2} = 3$. The neighborhood of 3X3 surrounding for each pixel in the I image are defined using the next following questions. Summing them would give us punishment over pixels that are far from one another (far in color sense).
-
-Right Neighbors: 
-
-$\sum_{i=1}^{size_{1}*(size_{2}-1)} (X_{i} - X_{i+size_{1}})^{2}$
-
-Left Neighbors: 
-
-$\sum_{i=1}^{size_{1}*(size_{2}-1)} (X_{i+size_{1}} - X_{i})^{2}$
-
-Up Neighbors: 
-
-$\sum_{j=0}^{size_{2}-1} \sum_{i=2}^{size_{1}} (X_{i-1+(j*size_{1})} - X_{i+(j*size_{1})})^{2}$
-
-and so on... 
-
 [1] Chang, Jason, Randi Cabezas, and John W. Fisher. "Bayesian nonparametric intrinsic image decomposition." European conference on computer vision. Springer, Cham, 2014.‏
