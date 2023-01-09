@@ -47,4 +47,10 @@ Finally, we assume that the observed pixels in the log image are drawn independe
 $p(x|\mu, z, g, \Sigma^{x}) = \Pi_{i} p(x_{i}|\mu, z_{i}, g_{i}, \Sigma^{x}) = \Pi_{i} N(x_{i} ; \mu_{z_{i}} + g_{i}, \Sigma_{x})$
 
 
+To covert to MRF version:
+
+
+
+
+
 [1] Chang, Jason, Randi Cabezas, and John W. Fisher. "Bayesian nonparametric intrinsic image decomposition." European conference on computer vision. Springer, Cham, 2014.‏
