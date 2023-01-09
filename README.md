@@ -56,27 +56,35 @@ $I_{vec}^{T} = [X_1, X_2, X_3, X_4, X_5, X_6, X_7, X_8, X_9, X_10, X_11, X_12]$
 Mark the two dimensions of I as $size_{1} = 4$, $size_{2} = 3$. The neighborhood of 3X3 surrounding for each pixel in the I image are defined using the next following questions. Summing them would give us punishment over pixels that are far from one another (far in color sense).
 
 Right Neighbors: 
+
 $\sum_{i=1}^{size_{1}*(size_{2}-1)} (X_{i} - X_{i+size_{1}})^{2}$
 
 Left Neighbors: 
+
 $\sum_{i=1}^{size_{1}*(size_{2}-1)} (X_{i+size_{1}} - X_{i})^{2}$
 
 Up Neighbors: 
+
 $\sum_{j=0}^{size_{2}-1} \sum_{i=2}^{size_{1}} (X_{i-1+(j*size_{1})} - X_{i+(j*size_{1})})^{2}$
 
 Down Neighbors:
+
 $\sum_{j=0}^{size_{2}-1} \sum_{i=2}^{size_{1}} (X_{i+(j*size_{1})} - X_{i-1+(j*size_{1})})^{2}$
 
 Up Left Diagonal:
+
 $\sum_{j=0}^{size_{2}-2} \sum_{i=size_{1}+2}^{2*size_{1}} (X_{i+(j*size_{1})} - X_{i-1+((j-1)*size_{1})})^{2}$
 
 Down right Diagonal:
+
 $\sum_{j=0}^{size_{2}-2} \sum_{i=size_{1}+2}^{2*size_{1}} (X_{i-1+((j-1)*size_{1})} - X_{i+(j*size_{1})})^{2}$
 
 Up Right Diagonal:
+
 $\sum_{j=0}^{size_{2}-2} \sum_{i=2}^{size_{1}} (X_{i+(j*size_{1})} - X_{i-1+((j+1)*size_{1})})^{2} $
 
 Down Left Diagonal:
+
 $\sum_{j=0}^{size_{2}-2} \sum_{i=2}^{size_{1}} (X_{i-1+((j+1)*size_{1})} - X_{i+(j*size_{1})})^{2}$
 
 
