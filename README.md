@@ -28,7 +28,8 @@ $log(S) = g$
 $\Sigma ^{g}$ denotes the finite-dimensional co-variance matrix obtained by evaluating the kernel, k, at the grid points. 
 The specific co-variance kernel parameters
 govern the smoothness properties of g and are learned from training data. (l and sigma ?).
-\textbf{Finally:} 
+
+Finally:
 Finally, we assume that the observed pixels in the log image are drawn independently from the following Gaussian distribution:
 $p(x|\mu, z, g, \Sigma^{x}) = \Pi_{i} p(x_{i}|\mu, z_{i}, g_{i}, \Sigma^{x}) = \Pi_{i} N(x_{i} ; \mu_{z_{i}} + g_{i}, \Sigma_{x})$
 
