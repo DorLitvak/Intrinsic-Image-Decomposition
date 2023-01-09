@@ -2,7 +2,7 @@
 
 This repository is an extanded implementation of [1]. 
 We used hirarchical DPMM in order to cluster the reflectance over multiple images. 
-And later extanded the GP to Markov Random Field for faster preformances. 
+And later extanded (not in this version) the GP to Markov Random Field for faster preformances. 
 
 Some mathematical explanation about the repo:
 
