@@ -90,8 +90,8 @@ end
 # ldim is 0 in the hdp part
 function create_priors_hdp(gdim, ldim, images_dict, scalar_g, scalar_l, ν_g, v_l, λ_g, λ_l)
     #data_cov = cov(images_dict[1]')
-    images_color = hcat(images_dict[1][1:3,:])    #, ) #, images_dict[3][1:3,:] , images_dict[2][1:3,:]
-    images_xy = hcat(images_dict[1][4:5,:])       #) # , images_dict[2][4:5,:]
+    images_color = hcat(images_dict[1][1:3,:])   
+    images_xy = hcat(images_dict[1][4:5,:])  
 
     mean_data_rgb = mean(images_color,dims = 2)[:]
     mean_data_xy = mean(images_xy,dims = 2)[:]
@@ -99,23 +99,6 @@ function create_priors_hdp(gdim, ldim, images_dict, scalar_g, scalar_l, ν_g, v_
     cov_data_rgb = cov(images_color')
     cov_data_xy = cov(images_xy')
 
-    #The defult g_prior
-    #g_prior = niw_hyperparams(1.0, zeros(gdim), gdim+3, Matrix{Float64}(I, gdim, gdim)*1)
-
-    #prev priors
-    #g_prior = niw_hyperparams(1.0, mean_data_rgb, gdim+3, Matrix{Float64}(I, gdim, gdim)*2)
-    #l_prior = niw_hyperparams(1.0, mean_data_xy, ldim+3, Matrix{Float64}(I, ldim, ldim)*1)
-
-    #oren's priors segestion:
-    # NIW(λ, μ_0, ν, Ψ)
-    #print("scalar_g", scalar_g) #scalar_g = 50 #25 #to play with it to get a big covariance psi Ψ
-    #print("scalar_l", scalar_l )#scalar_l = 70 #70 #50 #25 #1
-    # ν is a parameter of what is my certenty in the covariance psi
-    #ν_g = 100 #gdim+20  #2 #gdim+3
-    #print("v_g", ν_g) #v_l = 150 #100  #ldim #1 #ldim+3
-    #print("v_l", v_l) #λ = kappa sdo counts of mean.
-    #λ_g = 0.1
-    #λ_l = 1 #1
     g_prior = niw_hyperparams(λ_g, mean_data_rgb, ν_g, cov_data_rgb * scalar_g)
     l_prior = niw_hyperparams(λ_l, mean_data_xy, v_l, cov_data_xy * scalar_l)
 
@@ -207,19 +190,15 @@ end
 function Sample_Reflectance(X, g, scalar_g, scalar_l, ν_g, v_l, mask, flag_mean_DP, λ_g, λ_l)
     gdim=3
     println("Sample Reflectance")
-    #images_dict = create_images_input(X, g, 5)
 
     images_dict =  create_images_mean_input(X, g, 5, mask, flag_mean_DP)
-
-    #global_hyper_params, local_hyper_params = create_default_priors(gdim,0,:niw)
-    #global_hyper_params, local_hyper_params = create_priors_hdp(gdim,0,images_dict) #for hdp
 
     global_hyper_params, local_hyper_params = create_priors_hdp(gdim, 2, images_dict, scalar_g, scalar_l, ν_g, v_l, λ_g, λ_l) #for vhdp!!!
     iters = 100
     #function vhdp_fit(data,gdim, α, γ, η, gprior::distribution_hyper_params, lprior, iters, initial_custers = 1, burnout = 5)
-    α = 10  #0.1  #0.1 #0.1 #3 #10.0
-    γ = 1 #10 #100.0
-    η = 10  #10.0
+    α = 10  
+    γ = 1 
+    η = 10  
     hdp, history = vhdp_fit(images_dict, gdim, α, γ, η, global_hyper_params, local_hyper_params, iters)
     color_means = [(x.cluster_params.cluster_params.distribution.μ)[1:3] for x in hdp.global_clusters]
     if flag_mean_DP == true
@@ -358,7 +337,6 @@ function LS_Shading(Log_X, μ_idx, Ax, mask)
         color_image[2,:,:] .= res_G
         color_image[3,:,:] .= res_B
 
-        #save("/vildata/dorlitvak/img_decomp/test_images/color_image.png", colorview(RGB, map(clamp01nan, exp.(color_image))))
         println("shading" * string(i) * " OK")
         push!(g_list, color_image)
     end
@@ -445,20 +423,13 @@ function II_via_MCMC(X, Log_X, scalar_g, scalar_l, ν_g, v_l, λ_g, λ_l, λ, A_
     start = time()
     while(it < 4)
         μ_idx = Sample_Reflectance(Log_X, g, scalar_g, scalar_l, ν_g, v_l, mask, flag_mean_DP, λ_g, λ_l) #, Σ_x_clusters, global_labels, num_of_clusters
-        #save("/vildata/dorlitvak/img_decomp/test_images/mu1.png", colorview(RGB, map(clamp01nan, exp.(μ_idx[1]))))
-        #save("/vildata/dorlitvak/img_decomp/test_images/mu2.png", colorview(RGB, map(clamp01nan, exp.(μ_idx[2]))))
-        #save("/vildata/dorlitvak/img_decomp/test_images/mu3.png", colorview(RGB, map(clamp01nan, exp.(μ_idx[3]))))
-        #save("/vildata/dorlitvak/img_decomp/test_images/mu" * string(idx)* ".png" , colorview(RGB, map(clamp01nan, exp.(μ_idx[idx]))))
-
+        
         if flag_gray_LS == false
             g = LS_Shading(Log_X, μ_idx, Ax, mask) #use RGB mode
         else
             g = LS_Shading_gray(Log_X, μ_idx, Ax, mask) #use Gray mode
         end
-        #save("/vildata/dorlitvak/img_decomp/test_images/g1.png", colorview(RGB, map(clamp01nan, exp.(g[1]))))
-        #save("/vildata/dorlitvak/img_decomp/test_images/g2.png", colorview(RGB, map(clamp01nan, exp.(g[2]))))
-        #save("/vildata/dorlitvak/img_decomp/test_images/g3.png", colorview(RGB, map(clamp01nan, exp.(g[3]))))
-
+        
         println("finish II_via_MCMC it: ", it)
         it = it + 1
 
@@ -466,6 +437,6 @@ function II_via_MCMC(X, Log_X, scalar_g, scalar_l, ν_g, v_l, λ_g, λ_l, λ, A_
     elapsed = time() - start
     println("-----------------FINIAH - STATISTICS:--------------------")
     println("Run Time in min:", elapsed/60)
-    #println("Number of total clusters:", num_of_clusters)
+    println("Number of total clusters:", num_of_clusters)
     return μ_idx, g
 end
