@@ -67,25 +67,6 @@ Up Neighbors:
 
 $\sum_{j=0}^{size_{2}-1} \sum_{i=2}^{size_{1}} (X_{i-1+(j*size_{1})} - X_{i+(j*size_{1})})^{2}$
 
-Down Neighbors:
-
-$\sum_{j=0}^{size_{2}-1} \sum_{i=2}^{size_{1}} (X_{i+(j*size_{1})} - X_{i-1+(j*size_{1})})^{2}$
-
-Up Left Diagonal:
-
-$\sum_{j=0}^{size_{2}-2} \sum_{i=size_{1}+2}^{2*size_{1}} (X_{i+(j*size_{1})} - X_{i-1+((j-1)*size_{1})})^{2}$
-
-Down right Diagonal:
-
-$\sum_{j=0}^{size_{2}-2} \sum_{i=size_{1}+2}^{2*size_{1}} (X_{i-1+((j-1)*size_{1})} - X_{i+(j*size_{1})})^{2}$
-
-Up Right Diagonal:
-
-$\sum_{j=0}^{size_{2}-2} \sum_{i=2}^{size_{1}} (X_{i+(j*size_{1})} - X_{i-1+((j+1)*size_{1})})^{2} $
-
-Down Left Diagonal:
-
-$\sum_{j=0}^{size_{2}-2} \sum_{i=2}^{size_{1}} (X_{i-1+((j+1)*size_{1})} - X_{i+(j*size_{1})})^{2}$
-
+and so on... 
 
 [1] Chang, Jason, Randi Cabezas, and John W. Fisher. "Bayesian nonparametric intrinsic image decomposition." European conference on computer vision. Springer, Cham, 2014.‏
